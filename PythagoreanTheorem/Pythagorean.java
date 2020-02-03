@@ -1,3 +1,5 @@
+package PythagoreanTheorem;
+
 public class Pythagorean {
     public static void test() {
         System.out.println("I am inside of Pythagorean!");

@@ -1,3 +1,4 @@
+package PythagoreanTheorem;
 public class Triangle {
     private int sideA;
     private int sideB;
