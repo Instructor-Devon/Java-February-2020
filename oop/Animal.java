@@ -65,7 +65,7 @@ public class Animal {
         // define logic of how animal attacks/is attacked
         // multiply strength x damage
         int effectiveDmg = damage * this.strength;
-        System.out.printf("%s attacks %s for %d points", this.species, target.species, effectiveDmg);
+        System.out.printf("%s attacks %s for %d points\n", this.species, target.species, effectiveDmg);
 
         // reduce target.health by effectiveDmg
         target.health -= effectiveDmg;

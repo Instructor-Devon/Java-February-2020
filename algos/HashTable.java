@@ -1,11 +1,11 @@
-public class HashTable2d {
+public class HashTable {
     // things hash table has!
     int capacity;
-    String[][] table;
+    KeyValuePair[] table;
 
-    public HashTable2d(int capacity) {
+    public HashTable(int capacity) {
         this.capacity = capacity;
-        this.table = new String[capacity][];
+        this.table = new KeyValuePair[capacity];
     }
     private int getIndex(String key) {
     	int code = Math.abs(key.hashCode());
@@ -22,24 +22,24 @@ public class HashTable2d {
     	if(this.table[i] == null) {
     		return "No Key here!";
     	}
-        return this.table[i][1];
+        return this.table[i].value;
     }
     // setter
     public void set(String key, String value) {
     	String[] kvp = {key, value};
     	int i = getIndex(key);
-    	this.table[i] = kvp;
+    	this.table[i] = new KeyValuePair(key, value);
     }
     @Override
     public String toString() {
     	String output = "{";
-    	for(String[] kvp:this.table) {
+    	for(KeyValuePair kvp:this.table) {
     		if(kvp!=null) {
-    			output += kvp[0] + ": " + kvp[1] + ", ";
+    			output += kvp.key + ": " + kvp.value + ", ";
     		}
     	}
     	output += "}";
     	return output;
     }
-    // { "Lee", "Douglas" }
+    // { "firstName": "Lee", "lastName": "Douglas" }
 }
