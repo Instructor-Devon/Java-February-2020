@@ -1,11 +1,13 @@
+import java.util.ArrayList;
+
 public class HashTable {
     // things hash table has!
     int capacity;
-    KeyValuePair[] table;
+    SLL[] table;
 
     public HashTable(int capacity) {
         this.capacity = capacity;
-        this.table = new KeyValuePair[capacity];
+        this.table = new SLL[capacity];
     }
     private int getIndex(String key) {
     	int code = Math.abs(key.hashCode());
@@ -22,22 +24,22 @@ public class HashTable {
     	if(this.table[i] == null) {
     		return "No Key here!";
     	}
-        return this.table[i].value;
+    	return null;
     }
     // setter
     public void set(String key, String value) {
     	String[] kvp = {key, value};
     	int i = getIndex(key);
-    	this.table[i] = new KeyValuePair(key, value);
+//    	this.table[i] = new KeyValuePair(key, value);
     }
     @Override
     public String toString() {
     	String output = "{";
-    	for(KeyValuePair kvp:this.table) {
-    		if(kvp!=null) {
-    			output += kvp.key + ": " + kvp.value + ", ";
-    		}
-    	}
+//    	for(KeyValuePair kvp:this.table) {
+//    		if(kvp!=null) {
+//    			output += kvp.key + ": " + kvp.value + ", ";
+//    		}
+//    	}
     	output += "}";
     	return output;
     }

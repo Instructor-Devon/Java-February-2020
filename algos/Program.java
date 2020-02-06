@@ -7,5 +7,6 @@ public class Program {
        ht.set("lastName", "Douglas");
        ht.set("firstName", "Reena");
        String first = ht.get("firstName");
+   
     }
 }
