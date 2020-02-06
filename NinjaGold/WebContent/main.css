@@ -1,0 +1,12 @@
+body {
+	background-color: silver;
+}
+.building {
+	display: inline-block;
+	width: 200px;
+	height: 200px;
+	border: solid 2px black;
+	padding: 10px;
+	vertical-align: top;
+	text-align: center;
+}
