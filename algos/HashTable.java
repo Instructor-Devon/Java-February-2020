@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 
 public class HashTable {
     // things hash table has!
@@ -14,23 +13,46 @@ public class HashTable {
     	return code%this.capacity;
     }
     // getter
-    // ht.get("firstName") => "Lee"
-    public String get(String key) {
+    public String get(String key) throws Exception {
 
      
         // convert hashCode into index for our table
     	int i = getIndex(key);
         // return value in table at index
     	if(this.table[i] == null) {
-    		return "No Key here!";
+    		throw new Exception("Key Error");
     	}
-    	return null;
+    	
+    	// check to see if key already in table
+    	KeyValuePair existing = this.table[i].contains(key);
+    	if(existing != null) {
+    		return existing.value;
+    	}
+    	throw new Exception("Key Error");
     }
     // setter
+    // ht.get("firstName") => "Lee"
+    // ht.get("firstName") => "Cassandra"
     public void set(String key, String value) {
-    	String[] kvp = {key, value};
+    	KeyValuePair kvp = new KeyValuePair(key, value);
     	int i = getIndex(key);
-//    	this.table[i] = new KeyValuePair(key, value);
+    	
+    	// is there anything here yet?
+    	if(this.table[i] == null) {
+    		// add new SLL here!
+    		this.table[i] = new SLL();
+    	}
+    	
+    	SLL collisions = this.table[i];
+    	
+    	// check to see if key already in table
+    	KeyValuePair existing = collisions.contains(key);
+    	if(existing != null) {
+    		existing.value = value;
+    	} else {
+    		collisions.add(kvp);
+    	}
+    	
     }
     @Override
     public String toString() {
