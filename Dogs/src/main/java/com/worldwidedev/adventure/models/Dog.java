@@ -16,11 +16,20 @@ public class Dog {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	@Size(min=2,max=20)
+	@Size(min=2,max=20, message="Default Name Message")
+	@NotNull
 	private String name;
 	@NotNull
 	private String breed;
+	@NotNull
+	@Size(min=5,max=20)
 	private String description;
+	
+	public Dog(String name, String breed, String description) {
+		this.name = name;
+		this.breed = breed;
+		this.description = description;
+	}
 	
 	public Dog() {
 		

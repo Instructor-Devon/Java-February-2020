@@ -28,6 +28,13 @@ public class DogService {
 	public Dog createDog(Dog newDog) {
 		return this.dRepo.save(newDog);
 	}
+	public Dog update(Dog dog) {
+		return this.dRepo.save(dog);
+	}
+	public Dog createDog(String name, String breed, String description) {
+		Dog newDog = new Dog(name, breed, description);
+		return this.dRepo.save(newDog);
+	}
 	// deleteADog
 	// updateADog
 }
