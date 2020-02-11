@@ -22,7 +22,7 @@ public class Dog {
 	@NotNull
 	private String breed;
 	@NotNull
-	@Size(min=5,max=20)
+	@Size(min=5,max=255)
 	private String description;
 	
 	public Dog(String name, String breed, String description) {

@@ -5,7 +5,26 @@ public class BST {
 		 this.root = null;
 	 }
 	 // size() 4
-	 // height() 6
+	 public int size(BSTNode node) {
+		 if(node == null) {
+			 return 0;
+		 }
+		 int leftSize = this.size(node.left);
+		 int rightSize = this.size(node.right);
+		 return 1 + leftSize + rightSize;
+	 }
+	 public int height(BSTNode node) {
+		 if(node == null) {
+			 return 0;
+		 }
+		 int leftSize = this.height(node.left);
+		 int rightSize = this.height(node.right);
+		 if(leftSize > rightSize) {
+			 return 1 + leftSize;
+		 } else {
+			 return 1 + rightSize;
+		 }
+	 }
 	 // max() 2
 	 // min() 2
 	 // remove() 8

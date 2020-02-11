@@ -22,12 +22,16 @@ public class DogService {
 	}
 	// getAll
 	public List<Dog> getAllDogs() {
-		return this.dRepo.findAll();
+		return this.dRepo.findByOrderByNameDesc();
+	}
+	public List<Dog> getDogsByBreed(String breed) {
+		return this.dRepo.findByBreedContainingOrderByNameDesc(breed);
 	}
 	// createADog
 	public Dog createDog(Dog newDog) {
 		return this.dRepo.save(newDog);
 	}
+	// updateADog
 	public Dog update(Dog dog) {
 		return this.dRepo.save(dog);
 	}
@@ -35,6 +39,8 @@ public class DogService {
 		Dog newDog = new Dog(name, breed, description);
 		return this.dRepo.save(newDog);
 	}
+	public void deleteDog(Long id) {
+		this.dRepo.deleteById(id);
+	}
 	// deleteADog
-	// updateADog
 }

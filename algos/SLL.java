@@ -21,6 +21,14 @@ public class SLL {
 		
 		runner.next = new SLLNode(value);
 	}
+	
+	public int size(SLLNode node) {
+		if(node == null) {
+			return 0;
+		}
+		return 1 + this.size(node.next);
+	}
+	
 	public KeyValuePair contains(String key) {
 		// returns a kvp if in list
 		SLLNode runner = null;

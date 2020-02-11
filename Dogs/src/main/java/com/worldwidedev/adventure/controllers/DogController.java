@@ -8,8 +8,10 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,6 +31,8 @@ public class DogController {
 		
 		// query for dogs!
 		List<Dog> dogs = this.dService.getAllDogs();
+		
+		List<Dog> westies = this.dService.getDogsByBreed("est");
 		
 		// send dogs to the page!
 		 viewModel.addAttribute("dogs", dogs);
@@ -55,7 +59,13 @@ public class DogController {
 		return "redirect:/";
 		
 	}
-	@RequestMapping(value="/", method=RequestMethod.POST)
+	// DELETE localhost:8080/<id>
+	@DeleteMapping("/{id}")
+	public String delete(@PathVariable("id") Long id) {
+		this.dService.deleteDog(id);
+		return "redirect:/";
+	}
+	@PostMapping("/")
 	public String create(@Valid @ModelAttribute("dog") Dog dog, BindingResult result) {
 		if(result.hasErrors()) {
 			// im invalid!

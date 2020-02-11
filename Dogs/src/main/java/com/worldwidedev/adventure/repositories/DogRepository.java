@@ -10,7 +10,9 @@ import com.worldwidedev.adventure.models.Dog;
 @Repository
 public interface DogRepository extends CrudRepository<Dog, Long> {
 	List<Dog> findAll();
-	List<Dog> findByBreed(String breed);
+	// SELECT * FROM dogs WHERE breed=$1
+	List<Dog> findByOrderByNameDesc();
+	List<Dog> findByBreedContainingOrderByNameDesc(String breed);
 	// Optional<Dog> findById(Long id);
 	// Dog save(Dog newDog);
 }

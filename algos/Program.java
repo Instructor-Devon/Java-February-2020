@@ -6,7 +6,21 @@ public class Program {
     	tree.add(5);
     	tree.add(15);
     	tree.add(25);
+    	tree.add(3);
+    	tree.add(7);
+    	tree.add(9);
     	
     	tree.contains(7, tree.root);
+    	
+    	System.out.println(tree.height(tree.root));
+    	
+    	SLL list = new SLL();
+    	list.add(new KeyValuePair("haha", "LOL"));
+    	list.add(new KeyValuePair("haha", "LOL"));
+    	list.add(new KeyValuePair("haha", "LOL"));
+    	list.add(new KeyValuePair("haha", "LOL"));
+    	list.add(new KeyValuePair("haha", "LOL"));
+    	
+    	System.out.println(list.size(list.head));
     }
 }
