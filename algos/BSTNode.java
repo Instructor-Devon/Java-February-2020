@@ -8,5 +8,11 @@ public class BSTNode {
 		this.left = null;
 		this.right = null;
 	}
+	public boolean isLeaf() {
+		return this.left == null && this.right == null;
+	}
+	public boolean isFull() {
+		return this.left != null && this.right != null;
+	}
 	 
 }

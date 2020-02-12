@@ -5,6 +5,37 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <t:wrapper>
+	<h2>Name:</h2>
+	<p>${ dog.name }</p>
+	<h2>Breed:</h2>
+	<p>${ dog.breed }</p>
+	<c:choose>
+		<c:when test="${ dog.tag != null }">
+		<h2>City:</h2>
+		<p>${ dog.tag.city }</p>
+		<h2>State:</h2>
+		<p>${ dog.tag.state }</p>
+		</c:when>
+		<c:otherwise>
+			<h3>Register this Dog!</h3>
+			<form:form action="/tag" method="post" modelAttribute="tag">
+				<form:hidden path="dog" value="${ dog.id }" />
+				<div class="form-group">
+					<form:label path="city">City</form:label>
+					<form:errors path="city"/>
+					<form:input path="city"/>
+				</div>
+				<div class="form-group">
+					<form:label path="state">State</form:label>
+					<form:errors path="state"/>
+					<form:input path="state"/>
+				</div>
+				<button>Submit</button>
+			</form:form>
+		</c:otherwise>
+	</c:choose>
+	<hr />
+	<h3>Edit This Dog</h3>
 	<form:form action="/${ dog.id }" method="post" modelAttribute="dog">
 		 <input type="hidden" name="_method" value="put">
 		<div class="form-group">

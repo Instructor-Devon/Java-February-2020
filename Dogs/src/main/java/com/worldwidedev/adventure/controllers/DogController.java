@@ -18,13 +18,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.worldwidedev.adventure.models.Dog;
+import com.worldwidedev.adventure.models.Tag;
 import com.worldwidedev.adventure.services.DogService;
+import com.worldwidedev.adventure.services.TagService;
 
 @Controller
 public class DogController {
 	private DogService dService;
-	public DogController(DogService service) {
+	private TagService tService;
+	public DogController(DogService service, TagService tService) {
 		this.dService = service;
+		this.tService = tService;
 	}
 	@RequestMapping("/")
 	public String index(Model viewModel) {
@@ -46,7 +50,7 @@ public class DogController {
 	}
 	
 	@RequestMapping("/{id}")
-	public String showDog(Model viewModel, @PathVariable("id") Long id) {
+	public String showDog(Model viewModel, @PathVariable("id") Long id, @ModelAttribute("tag") Tag tag) {
 		viewModel.addAttribute("dog", this.dService.getOneDog(id));
 		return "show.jsp";
 	}
@@ -58,6 +62,16 @@ public class DogController {
 		this.dService.update(dog);
 		return "redirect:/";
 		
+	}
+	@PostMapping("/tag")
+	public String createTag(@Valid @ModelAttribute("tag") Tag tag, BindingResult result, Model model) {
+		Long dogId = tag.getDog().getId();
+		if(result.hasErrors()) {
+			model.addAttribute("dog", this.dService.getOneDog(dogId));
+			return "show.jsp";
+		}
+		this.tService.create(tag);
+		return "redirect:/" + dogId;
 	}
 	// DELETE localhost:8080/<id>
 	@DeleteMapping("/{id}")

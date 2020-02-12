@@ -2,15 +2,19 @@ public class Program {
     public static void main(String[] args) {
         
     	BST tree = new BST();
+    	tree.add(20);
     	tree.add(10);
+    	tree.add(30);
     	tree.add(5);
-    	tree.add(15);
-    	tree.add(25);
-    	tree.add(3);
-    	tree.add(7);
-    	tree.add(9);
+    	tree.add(11);
+    	tree.add(23);
+    	tree.add(100);
+    	tree.add(13);
     	
     	tree.contains(7, tree.root);
+    	
+    	tree.remove(5);
+    	tree.remove(11);
     	
     	System.out.println(tree.height(tree.root));
     	
