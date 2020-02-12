@@ -35,7 +35,7 @@ public class DogController {
 		List<Dog> westies = this.dService.getDogsByBreed("est");
 		
 		// send dogs to the page!
-		 viewModel.addAttribute("dogs", dogs);
+		viewModel.addAttribute("dogs", dogs);
 		
 		return "index.jsp";
 	}

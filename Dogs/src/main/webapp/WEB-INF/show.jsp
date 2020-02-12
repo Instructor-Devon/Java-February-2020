@@ -3,16 +3,8 @@
 <%@ page isErrorPage="true" %>   
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<title>Dogs App!</title>
-</head>
-<body>
-	<h1>Welcome to Dogs Dot Com!</h1>
-	<hr />
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<t:wrapper>
 	<form:form action="/${ dog.id }" method="post" modelAttribute="dog">
 		 <input type="hidden" name="_method" value="put">
 		<div class="form-group">
@@ -36,5 +28,4 @@
 	    <input type="hidden" name="_method" value="delete">
 	    <input class="btn btn-danger" type="submit" value="Delete">
 	</form>
-</body>
-</html>
+</t:wrapper>
