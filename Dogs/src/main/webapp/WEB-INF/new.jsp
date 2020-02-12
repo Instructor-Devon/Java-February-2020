@@ -20,6 +20,12 @@
 			<form:input path="breed"/>
 		</div>
 		<div class="form-group">
+			<p>TODO: Make this work with uploading</p>
+			<form:label path="image">Image</form:label>
+			<form:errors path="image"/>
+			<form:input path="image"/>
+		</div>
+		<div class="form-group">
 			<form:label path="description">Description</form:label>
 			<form:errors path="description"/>
 			<form:input path="description"/>

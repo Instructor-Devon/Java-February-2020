@@ -1,5 +1,7 @@
 package com.worldwidedev.adventure.models;
 
+import java.util.UUID;
+
 //import java.util.UUID;
 
 import javax.persistence.Entity;
@@ -17,8 +19,8 @@ public class Tag {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-//	private UUID registraionCode;
 	private String city;
+	
 	private String state;
 	
 	public Tag() {

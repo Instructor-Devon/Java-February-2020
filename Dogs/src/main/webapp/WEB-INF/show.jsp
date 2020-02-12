@@ -9,12 +9,14 @@
 	<p>${ dog.name }</p>
 	<h2>Breed:</h2>
 	<p>${ dog.breed }</p>
+	<img src="${ dog.image }" alt="${ dog.name }-pic" />
 	<c:choose>
 		<c:when test="${ dog.tag != null }">
 		<h2>City:</h2>
 		<p>${ dog.tag.city }</p>
 		<h2>State:</h2>
 		<p>${ dog.tag.state }</p>
+		<a href="/state/${ dog.tag.state }">Find other dogs from ${ dog.tag.state }!</a>
 		</c:when>
 		<c:otherwise>
 			<h3>Register this Dog!</h3>
@@ -28,7 +30,11 @@
 				<div class="form-group">
 					<form:label path="state">State</form:label>
 					<form:errors path="state"/>
-					<form:input path="state"/>
+					<form:select path="state">
+					<c:forEach items="${ states }" var="state">
+						<option value="${ state.stateCode }">${ state.name }</option>
+					</c:forEach>
+					</form:select>
 				</div>
 				<button>Submit</button>
 			</form:form>

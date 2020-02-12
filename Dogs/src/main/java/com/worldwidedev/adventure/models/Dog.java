@@ -24,6 +24,7 @@ public class Dog {
 	private String name;
 	@NotNull
 	private String breed;
+	private String image;
 	@NotNull
 	@Size(min=5,max=255)
 	private String description;
@@ -62,6 +63,14 @@ public class Dog {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public Tag getTag() {
