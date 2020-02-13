@@ -10,6 +10,7 @@
 	<h1>Welcome to Dogs Dot Com!</h1>
 	<hr />
 	<a href="/new">Create a new Dog!</a>
+	<a href="/toys/new">Gift a Toy!</a>
 	<jsp:doBody/>
 </body>
 </html>

@@ -16,6 +16,12 @@
 		<p>${ dog.tag.city }</p>
 		<h2>State:</h2>
 		<p>${ dog.tag.state }</p>
+		<h2>Toys:</h2>
+		<ol>
+		<c:forEach items="${ dog.toys }" var="toy">
+			<li>${ toy.name } (${ toy.price })</li>			
+		</c:forEach>
+		</ol>
 		<a href="/state/${ dog.tag.state }">Find other dogs from ${ dog.tag.state }!</a>
 		</c:when>
 		<c:otherwise>

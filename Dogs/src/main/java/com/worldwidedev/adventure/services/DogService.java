@@ -2,6 +2,7 @@ package com.worldwidedev.adventure.services;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.worldwidedev.adventure.models.Dog;
@@ -10,10 +11,11 @@ import com.worldwidedev.adventure.repositories.DogRepository;
 @Service
 public class DogService {
 	// prepare for dependency injection
+	@Autowired
 	private DogRepository dRepo;
-	public DogService(DogRepository repo) {
-		this.dRepo = repo;
-	}
+//	public DogService(DogRepository repo) {
+//		this.dRepo = repo;
+//	}
 	
 	// getOne
 	public Dog getOneDog(Long id) {

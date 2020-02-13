@@ -14,6 +14,7 @@ public class BST {
 		 return 1 + leftSize + rightSize;
 	 }
 	 public void remove(int value) {
+		
 		 this.remove(value, this.root);
 	 }
 	 public void remove(int value, BSTNode node) {
@@ -30,7 +31,11 @@ public class BST {
 				 return;
 			 } else if(node.left.isFull()) {
 				 // we find a valid successor
-				 node.left = this.getValidSuccessor(node);
+				 BSTNode replacement = this.getValidSuccessor(node.left);
+				 replacement.left = node.left.left;
+				 replacement.right = node.left.right;
+				 node.left = replacement;
+				 return;
 			 } else {
 				 // move pointer to single child of node to remove
 				 // find out which side has child
@@ -47,7 +52,11 @@ public class BST {
 				 return;
 			 } else if(node.right.isFull()) {
 				// we find a valid successor
-				 node.right = this.getValidSuccessor(node);
+				 BSTNode replacement = this.getValidSuccessor(node.right);
+				 replacement.left = node.right.left;
+				 replacement.right = node.right.right;
+				 node.right = replacement;
+				 return;
 			 } else {
 				// move pointer to single child of node to remove
 				 BSTNode grandchild = (node.right.left != null) ? node.right.left : node.right.right;
@@ -72,7 +81,16 @@ public class BST {
 		 
 	 }
 	 public BSTNode getValidSuccessor(BSTNode node) {
-		 return null;
+		 BSTNode successor;
+		 // go left ONCE
+		 node = node.left;
+		 // go right until LEAF
+		 while(node.right.right != null) {
+			 node = node.right;
+		 }
+		 successor = node.right;
+		 node.right = null;
+		 return successor;
 	 }
  	 public int height(BSTNode node) {
 		 if(node == null) {

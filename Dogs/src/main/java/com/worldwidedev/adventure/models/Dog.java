@@ -1,11 +1,14 @@
 package com.worldwidedev.adventure.models;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
@@ -30,6 +33,8 @@ public class Dog {
 	private String description;
 	@OneToOne(mappedBy="dog", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private Tag tag;
+	@OneToMany(mappedBy="dog", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	private List<Toy> toys;
 	
 	public Dog(String name, String breed, String description) {
 		this.name = name;
@@ -79,5 +84,13 @@ public class Dog {
 
 	public void setTag(Tag tag) {
 		this.tag = tag;
+	}
+
+	public List<Toy> getToys() {
+		return toys;
+	}
+
+	public void setToys(List<Toy> toys) {
+		this.toys = toys;
 	}
 }

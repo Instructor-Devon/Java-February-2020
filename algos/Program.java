@@ -10,11 +10,13 @@ public class Program {
     	tree.add(23);
     	tree.add(100);
     	tree.add(13);
+    	tree.add(1);
+    	tree.add(7);
     	
     	tree.contains(7, tree.root);
     	
-    	tree.remove(5);
-    	tree.remove(11);
+   
+    	tree.remove(20);
     	
     	System.out.println(tree.height(tree.root));
     	
