@@ -1,0 +1,17 @@
+body {
+	background-color: #c3c3c3;
+}
+nav {
+	display: flex;
+	justify-content: space-around;
+}
+.card {
+	background-color: inherit;
+	border: none;
+	flex-direction: row;
+}
+.dog-profile {
+	width: 100px;
+	border-radius: 150px;
+	display: block;
+}

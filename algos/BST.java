@@ -1,9 +1,26 @@
+import java.util.ArrayList;
 
 public class BST {
 	 BSTNode root;
 	 public BST() {
 		 this.root = null;
 	 }
+	 public int[] toSortedArray() {
+		 int[] payload = new int[this.size(this.root)];
+		 return toSortedArray(this.root, payload, 0);
+	 }
+	 public int[] toSortedArray(BSTNode node, int[] arr, Integer i) {
+		 if(node == null) {
+			 return arr;
+		 }
+		 this.toSortedArray(node.left, arr, i);
+		 arr[i] = node.value;
+		 i++;
+		 this.toSortedArray(node.right, arr, i);
+		 // do something on THIS node
+		 return arr;
+	 }
+	 
 	 // size() 4
 	 public int size(BSTNode node) {
 		 if(node == null) {

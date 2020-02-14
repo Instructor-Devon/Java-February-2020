@@ -3,12 +3,15 @@ package com.worldwidedev.adventure.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,54 +23,55 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.worldwidedev.adventure.models.Dog;
 import com.worldwidedev.adventure.models.State;
 import com.worldwidedev.adventure.models.Tag;
+import com.worldwidedev.adventure.models.User;
 import com.worldwidedev.adventure.services.DogService;
 import com.worldwidedev.adventure.services.TagService;
+import com.worldwidedev.adventure.services.UserService;
 
 @Controller
+@RequestMapping("dogs")
 public class DogController {
+	@Autowired
 	private DogService dService;
+	@Autowired
 	private TagService tService;
-	public DogController(DogService service, TagService tService) {
-		this.dService = service;
-		this.tService = tService;
-	}
-	@RequestMapping("/")
-	public String index(Model viewModel) {
+	@Autowired
+	private UserService uService;
+	@RequestMapping("")
+	public String index(Model viewModel, HttpSession session) {
 		
 		// query for dogs!
 		List<Dog> dogs = this.dService.getAllDogs();
-		
-		List<Dog> westies = this.dService.getDogsByBreed("est");
-		
+		Long userId = (Long)session.getAttribute("user");
+		// check if user is in session!
+		if(userId == null) {
+			// redirect back if not
+			return "redirect:/";
+		}
 		// send dogs to the page!
 		viewModel.addAttribute("dogs", dogs);
-		
-		return "index.jsp";
-	}
-	@RequestMapping("/sort/{field}/{direction}")
-	public String sortedIndex(@PathVariable("field") String field, @PathVariable("direction") Integer direction, Model model) {
-		model.addAttribute("dogs", this.dService.getDogsOrdered(field, direction));
-		return "index.jsp";
+		viewModel.addAttribute("user", this.uService.getById(userId));
+		return "dogs/index.jsp";
 	}
 	@RequestMapping("/new")
 	public String newDog(@ModelAttribute("dog") Dog dog) {
 		
-		return "new.jsp";
+		return "dogs/new.jsp";
 	}
 	
 	@RequestMapping("/{id}")
 	public String showDog(Model viewModel, @PathVariable("id") Long id, @ModelAttribute("tag") Tag tag) {
 		viewModel.addAttribute("dog", this.dService.getOneDog(id));
 		viewModel.addAttribute("states", State.getStates());
-		return "show.jsp";
+		return "dogs/show.jsp";
 	}
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	public String update(@Valid @ModelAttribute("dog") Dog dog, BindingResult result) {
 		if(result.hasErrors()) {
-			return "show.jsp";
+			return "dogs/show.jsp";
 		}
 		this.dService.update(dog);
-		return "redirect:/";
+		return "redirect:/dogs";
 		
 	}
 	@PostMapping("/tag")
@@ -76,36 +80,36 @@ public class DogController {
 		if(result.hasErrors()) {
 			model.addAttribute("dog", this.dService.getOneDog(dogId));
 			model.addAttribute("states", State.getStates());
-			return "show.jsp";
+			return "dogs/show.jsp";
 		}
 		this.tService.create(tag);
-		return "redirect:/" + dogId;
+		return "redirect:/dogs" + dogId;
 	}
 	// DELETE localhost:8080/<id>
 	@DeleteMapping("/{id}")
 	public String delete(@PathVariable("id") Long id) {
 		this.dService.deleteDog(id);
-		return "redirect:/";
+		return "redirect:/dogs";
 	}
 	@RequestMapping("/state/{stateName}")
 	public String dogsByState(@PathVariable("stateName") String stateName, Model viewModel) {
 		List<Dog> dogsFromState = this.dService.getDogsByState(stateName);
 		if(dogsFromState.size() < 1) {
-			return "redirect:/";
+			return "redirect:/dogs";
 		}
 		viewModel.addAttribute("dogs", dogsFromState);
 		viewModel.addAttribute("state", stateName);
-		return "state.jsp";
+		return "dogs/state.jsp";
 	}
-	@PostMapping("/")
+	@PostMapping("")
 	public String create(@Valid @ModelAttribute("dog") Dog dog, BindingResult result) {
 		if(result.hasErrors()) {
 			// im invalid!
-			return "new.jsp";
+			return "dogs/new.jsp";
 		} else {
 			// free to create a new dog!
 			this.dService.createDog(dog);
-			return "redirect:/";
+			return "redirect:/dogs";
 		}
 	}
 	@RequestMapping(value="/create", method=RequestMethod.POST)
@@ -137,4 +141,22 @@ public class DogController {
 		System.out.println("Hello");
 		return "redirect:/";
 	}
+	// localhost:8080/dogs/like/<id>
+	@GetMapping("/like/{dogId}")
+	public String like(@PathVariable("dogId") Long dogId, HttpSession session) {
+		Long userId = (Long)session.getAttribute("user");
+		User liker = this.uService.getById(userId);
+		Dog likedDog = this.dService.getOneDog(dogId);
+		this.dService.addLiker(liker, likedDog);
+		return "redirect:/dogs";
+	}
+	@GetMapping("/unlike/{dogId}")
+	public String unlike(@PathVariable("dogId") Long dogId, HttpSession session) {
+		Long userId = (Long)session.getAttribute("user");
+		User liker = this.uService.getById(userId);
+		Dog likedDog = this.dService.getOneDog(dogId);
+		this.dService.removeLiker(liker, likedDog);
+		return "redirect:/dogs";
+	}
+	
 }

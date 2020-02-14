@@ -7,7 +7,7 @@
 	<c:forEach items="${ errors }" var="err">
 		<p>${ err }</p>
 	</c:forEach>
-	<form:form action="/" method="post" modelAttribute="dog">
+	<form:form action="/dogs" method="post" modelAttribute="dog">
 
 		<div class="form-group">
 			<form:label path="name">Name</form:label>

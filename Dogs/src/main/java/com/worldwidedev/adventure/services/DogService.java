@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.worldwidedev.adventure.models.Dog;
+import com.worldwidedev.adventure.models.User;
 import com.worldwidedev.adventure.repositories.DogRepository;
 
 @Service
@@ -52,6 +53,15 @@ public class DogService {
 	}
 	public void deleteDog(Long id) {
 		this.dRepo.deleteById(id);
+	}
+	public void addLiker(User user, Dog dog) {
+		// get the list from the dog
+		dog.getLikers().add(user);
+		this.dRepo.save(dog);
+	}
+	public void removeLiker(User user, Dog dog) {
+		dog.getLikers().remove(user);
+		this.dRepo.save(dog);
 	}
 	// deleteADog
 }

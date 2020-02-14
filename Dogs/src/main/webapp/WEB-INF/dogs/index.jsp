@@ -3,23 +3,35 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <t:wrapper>
 	<h2>All Of Our Dogs!</h2>
+	<h3>Greetings, ${ user.firstName }</h3>
 	<table class="table table-dark">
 		<thead>
 			<tr>
-				<th>Id <a href="#">^</a></th>
-				<th>Name <a href="/sort/name/0">^</a></th>
-				<th>Breed <a href="#">^</a></th>
-				<th>Description <a href="#">^</a></th>
-				<th>Registered? <a href="#">^</a></th>
+				<th>Action</th>
+				<th>Name</th>
+				<th>Breed</th>
+				<th>Description</th>
+				<th>Likes</th>
+				<th>Registered?</th>
 			</tr>
 		</thead>
 		<tbody>
 		<c:forEach items="${ dogs }" var="dog">
 			<tr>
-				<td>${ dog.id }</td>
-				<td><a href="/${ dog.id }">${ dog.name }</a></td>
+				<td>
+					<c:choose>
+					<c:when test="${ !dog.likers.contains(user) }">
+						<a href="/dogs/like/${ dog.id }">Like</a>
+					</c:when>
+					<c:otherwise>
+						<a href="/dogs/unlike/${ dog.id }">Un-Like</a>
+					</c:otherwise>
+					</c:choose>
+				</td>
+				<td><a href="/dogs/${ dog.id }">${ dog.name }</a></td>
 				<td>${ dog.breed }</td>
 				<td>${ dog.description }</td>
+				<td>${ dog.likers.size() }</td>
 				<td>
 					<c:choose>
 						<c:when test="${ dog.tag != null }">
