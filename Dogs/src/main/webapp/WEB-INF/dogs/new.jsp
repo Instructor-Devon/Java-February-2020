@@ -7,7 +7,7 @@
 	<c:forEach items="${ errors }" var="err">
 		<p>${ err }</p>
 	</c:forEach>
-	<form:form action="/dogs" method="post" modelAttribute="dog">
+	<form:form action="/dogs" method="post" modelAttribute="dog" enctype = "multipart/form-data">
 
 		<div class="form-group">
 			<form:label path="name">Name</form:label>
@@ -21,9 +21,9 @@
 		</div>
 		<div class="form-group">
 			<p>TODO: Make this work with uploading</p>
-			<form:label path="image">Image</form:label>
-			<form:errors path="image"/>
-			<form:input path="image"/>
+			<form:label path="imgFile">Image</form:label>
+			<form:errors path="imgFile"/>
+			<form:input type="file" path="imgFile"/>
 		</div>
 		<div class="form-group">
 			<form:label path="description">Description</form:label>

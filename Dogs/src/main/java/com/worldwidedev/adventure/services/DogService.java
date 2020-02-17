@@ -33,12 +33,19 @@ public class DogService {
 	public List<Dog> getDogsByState(String state) {
 		return this.dRepo.findByTagState(state);
 	}
-	public List<Dog> getDogsOrdered(String field, Integer direction) {
-		if(direction == 0) {
-			return this.dRepo.findByOrderByNameDesc();
-		}
-		return this.dRepo.findByOrderByName();
+	public List<Dog> getDogsByToyValue() {
+		return this.dRepo.findByToysValue();
 	}
+//	public List<Object[]> getDogsByToyValueNative() {
+//		return this.dRepo.findByToysValueNative();
+//	}
+	
+//	public List<Dog> getDogsOrdered(String field, Integer direction) {
+//		if(direction == 0) {
+//			return this.dRepo.findByFieldSearchDesc(field);
+//		}
+//		return this.dRepo.findByFieldSearch(field);
+//	}
 	// createADog
 	public Dog createDog(Dog newDog) {
 		return this.dRepo.save(newDog);

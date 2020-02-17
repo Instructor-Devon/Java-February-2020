@@ -14,7 +14,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sun.istack.NotNull;
 
@@ -31,6 +34,16 @@ public class Dog {
 	@NotNull
 	private String breed;
 	private String image;
+	@Transient
+	private MultipartFile imgFile;
+	public MultipartFile getImgFile() {
+		return imgFile;
+	}
+
+	public void setImgFile(MultipartFile imgFile) {
+		this.imgFile = imgFile;
+	}
+
 	@NotNull
 	@Size(min=5,max=255)
 	private String description;
@@ -45,6 +58,13 @@ public class Dog {
 		inverseJoinColumns= @JoinColumn(name="user_id")
 	)
 	private List<User> likers;
+	public String getToysTotalValue() {
+		Double sum = 0.0;
+		for(Toy t : this.toys) {
+			sum += t.getPrice();
+		}
+		return String.format("$%.2f", sum);
+	}
 	
 	public Dog(String name, String breed, String description) {
 		this.name = name;

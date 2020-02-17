@@ -1,14 +1,20 @@
 package com.worldwidedev.adventure.controllers;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.worldwidedev.adventure.models.Dog;
@@ -37,6 +44,8 @@ public class DogController {
 	private TagService tService;
 	@Autowired
 	private UserService uService;
+	@Autowired
+	private ServletContext context;
 	@RequestMapping("")
 	public String index(Model viewModel, HttpSession session) {
 		
@@ -51,6 +60,20 @@ public class DogController {
 		// send dogs to the page!
 		viewModel.addAttribute("dogs", dogs);
 		viewModel.addAttribute("user", this.uService.getById(userId));
+		return "dogs/index.jsp";
+	}
+	@GetMapping("/toyvalue")
+	public String getDogsOrdered(Model viewModel, HttpSession session) {
+		Long userId = (Long)session.getAttribute("user");
+		// check if user is in session!
+		if(userId == null) {
+			// redirect back if not
+			return "redirect:/";
+		}
+		List<Dog> dogs = this.dService.getDogsByToyValue();
+//		List<Object[]> dogsTest = this.dService.getDogsByToyValueNative();
+		viewModel.addAttribute("user", this.uService.getById(userId));
+		viewModel.addAttribute("dogs", dogs);
 		return "dogs/index.jsp";
 	}
 	@RequestMapping("/new")
@@ -107,6 +130,26 @@ public class DogController {
 			// im invalid!
 			return "dogs/new.jsp";
 		} else {
+			// do image upload stuff
+			MultipartFile file = dog.getImgFile();
+			// get the path
+			String resourcePath = File.separator + "resources" + File.separator + "static" + File.separator + "images" + File.separator;
+			String uploadPath = context.getRealPath("") + ".." + resourcePath;
+
+			// get timestamp for unique file names
+//			SimpleDateFormat df = new SimpleDateFormat("MMddYYYYmmss");
+//			String ts = df.format(new Date());
+			
+			String fileName = file.getOriginalFilename();
+			try {
+				// copy file to 
+				FileCopyUtils.copy(file.getBytes(), new File(uploadPath+fileName));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			// /images/jt.jpg
+			dog.setImage(File.separator + "images" + File.separator + fileName);
 			// free to create a new dog!
 			this.dService.createDog(dog);
 			return "redirect:/dogs";
@@ -141,6 +184,7 @@ public class DogController {
 		System.out.println("Hello");
 		return "redirect:/";
 	}
+	
 	// localhost:8080/dogs/like/<id>
 	@GetMapping("/like/{dogId}")
 	public String like(@PathVariable("dogId") Long dogId, HttpSession session) {

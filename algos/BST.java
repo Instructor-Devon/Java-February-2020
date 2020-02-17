@@ -6,23 +6,30 @@ public class BST {
 		 this.root = null;
 	 }
 	 public int[] toSortedArray() {
-		 int[] payload = new int[this.size(this.root)];
-		 return toSortedArray(this.root, payload, 0);
+		 int[] payload = new int[this.size()];
+		 populateArray(this.root, payload, 0);
+		 return payload;
 	 }
-	 public int[] toSortedArray(BSTNode node, int[] arr, Integer i) {
-		 if(node == null) {
-			 return arr;
+	 private int populateArray(BSTNode node, int[] arr, int i) {
+		 if(node.left != null) {
+			 i = this.populateArray(node.left, arr, i);
 		 }
-		 this.toSortedArray(node.left, arr, i);
 		 arr[i] = node.value;
 		 i++;
-		 this.toSortedArray(node.right, arr, i);
-		 // do something on THIS node
-		 return arr;
+		 if(node.right != null) {
+			 i = this.populateArray(node.right, arr, i);
+		 }
+		 return i;
 	 }
 	 
 	 // size() 4
-	 public int size(BSTNode node) {
+	 public int size() {
+		 if(this.root == null) {
+			 return 0;
+		 }
+		 return this.size(this.root);
+	 }
+	 private int size(BSTNode node) {
 		 if(node == null) {
 			 return 0;
 		 }

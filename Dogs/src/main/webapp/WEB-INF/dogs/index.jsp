@@ -12,6 +12,7 @@
 				<th>Breed</th>
 				<th>Description</th>
 				<th>Likes</th>
+				<th>Value of Toys</th>
 				<th>Registered?</th>
 			</tr>
 		</thead>
@@ -32,6 +33,7 @@
 				<td>${ dog.breed }</td>
 				<td>${ dog.description }</td>
 				<td>${ dog.likers.size() }</td>
+				<td>${ dog.getToysTotalValue() }</td>
 				<td>
 					<c:choose>
 						<c:when test="${ dog.tag != null }">
