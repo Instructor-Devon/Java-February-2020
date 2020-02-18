@@ -8,9 +8,9 @@
 	<div class="dog-details">
 		<div class="card">
 			<div class="card-body">
-				<img class="dog-profile" src="${ dog.image }" alt="${ dog.name }-pic" />
 				<h4 class="card-title">${ dog.name }</h4>
 				<p class="card-subtitle"><strong>Breed: </strong>${ dog.breed }</p>
+				<p class="card-subtitle"><strong>Owner: </strong><a href="/${ dog.owner.id }">${ dog.owner.firstName }</a></p>
 				<blockquote>"${ dog.description }"</blockquote>
 				<h3>Liked by:</h3>
 				<ul>
@@ -61,6 +61,7 @@
 		</div>
 		
 	</div>
+	<c:if test="${ dog.owner.id == userId }">
 	<hr />
 	<h3>Edit This Dog</h3>
 	<form:form action="/dogs/${ dog.id }" method="post" modelAttribute="dog">
@@ -86,4 +87,5 @@
 	    <input type="hidden" name="_method" value="delete">
 	    <input class="btn btn-danger" type="submit" value="Delete">
 	</form>
+	</c:if>
 </t:wrapper>

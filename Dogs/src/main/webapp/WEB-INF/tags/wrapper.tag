@@ -12,12 +12,12 @@
 <body>
 	<div class="container">
 	<h1>Welcome to Dogs Dot Com!</h1>
-	<hr />
 	<nav>
 		<a href="/dogs">Dogs</a>
 		<a href="/toys">Toys</a>
 		<a href="/logout">Logout</a>
 	</nav>
+	<hr />
 	<jsp:doBody/>
 	</div>
 </body>

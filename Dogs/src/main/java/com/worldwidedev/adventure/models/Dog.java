@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -33,16 +34,6 @@ public class Dog {
 	private String name;
 	@NotNull
 	private String breed;
-	private String image;
-	@Transient
-	private MultipartFile imgFile;
-	public MultipartFile getImgFile() {
-		return imgFile;
-	}
-
-	public void setImgFile(MultipartFile imgFile) {
-		this.imgFile = imgFile;
-	}
 
 	@NotNull
 	@Size(min=5,max=255)
@@ -58,6 +49,9 @@ public class Dog {
 		inverseJoinColumns= @JoinColumn(name="user_id")
 	)
 	private List<User> likers;
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="user_id")
+	private User owner;
 	public String getToysTotalValue() {
 		Double sum = 0.0;
 		for(Toy t : this.toys) {
@@ -100,14 +94,6 @@ public class Dog {
 		this.description = description;
 	}
 
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
-
 	public Tag getTag() {
 		return tag;
 	}
@@ -122,6 +108,14 @@ public class Dog {
 
 	public void setToys(List<Toy> toys) {
 		this.toys = toys;
+	}
+
+	public User getOwner() {
+		return owner;
+	}
+
+	public void setOwner(User owner) {
+		this.owner = owner;
 	}
 
 	public List<User> getLikers() {

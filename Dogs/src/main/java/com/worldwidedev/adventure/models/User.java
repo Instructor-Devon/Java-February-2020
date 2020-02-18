@@ -2,6 +2,7 @@ package com.worldwidedev.adventure.models;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
@@ -42,6 +44,8 @@ public class User {
 		inverseJoinColumns= @JoinColumn(name="dog_id")
 	)
 	private List<Dog> likedDogs;
+	@OneToMany(mappedBy="owner", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	private List<Dog> dogsOwned;
 	
 	public User() {
 	}
@@ -81,6 +85,12 @@ public class User {
 	}
 	public void setConfirmPassword(String confirmPassword) {
 		this.confirmPassword = confirmPassword;
+	}
+	public List<Dog> getDogsOwned() {
+		return dogsOwned;
+	}
+	public void setDogsOwned(List<Dog> dogsOwned) {
+		this.dogsOwned = dogsOwned;
 	}
 	public List<Dog> getLikedDogs() {
 		return likedDogs;

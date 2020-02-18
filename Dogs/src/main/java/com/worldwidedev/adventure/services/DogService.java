@@ -36,16 +36,6 @@ public class DogService {
 	public List<Dog> getDogsByToyValue() {
 		return this.dRepo.findByToysValue();
 	}
-//	public List<Object[]> getDogsByToyValueNative() {
-//		return this.dRepo.findByToysValueNative();
-//	}
-	
-//	public List<Dog> getDogsOrdered(String field, Integer direction) {
-//		if(direction == 0) {
-//			return this.dRepo.findByFieldSearchDesc(field);
-//		}
-//		return this.dRepo.findByFieldSearch(field);
-//	}
 	// createADog
 	public Dog createDog(Dog newDog) {
 		return this.dRepo.save(newDog);

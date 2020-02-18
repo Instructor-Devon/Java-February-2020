@@ -8,7 +8,7 @@
 		<p>${ err }</p>
 	</c:forEach>
 	<form:form action="/dogs" method="post" modelAttribute="dog" enctype = "multipart/form-data">
-
+		<form:input type="hidden" path="owner" value="${ userId }"/>
 		<div class="form-group">
 			<form:label path="name">Name</form:label>
 			<form:errors path="name"/>
@@ -18,12 +18,6 @@
 			<form:label path="breed">Breed</form:label>
 			<form:errors path="breed"/>
 			<form:input path="breed"/>
-		</div>
-		<div class="form-group">
-			<p>TODO: Make this work with uploading</p>
-			<form:label path="imgFile">Image</form:label>
-			<form:errors path="imgFile"/>
-			<form:input type="file" path="imgFile"/>
 		</div>
 		<div class="form-group">
 			<form:label path="description">Description</form:label>

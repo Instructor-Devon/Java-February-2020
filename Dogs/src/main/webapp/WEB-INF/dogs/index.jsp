@@ -4,6 +4,8 @@
 <t:wrapper>
 	<h2>All Of Our Dogs!</h2>
 	<h3>Greetings, ${ user.firstName }</h3>
+	<a href="/dogs/new">Add a Dog</a>
+	<hr />
 	<table class="table table-dark">
 		<thead>
 			<tr>
