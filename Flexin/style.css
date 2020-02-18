@@ -1,0 +1,23 @@
+.container {
+    height: 600px;
+    width: 100%;
+    background-color: silver;
+}
+    #flex-one {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+    #flex-two {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        height: 80%;
+    }
+    #flex-two > div {
+        height: 100px;
+        width: 100px;
+        background-color: green;
+        border: 2px solid black;
+    }

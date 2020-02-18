@@ -51,7 +51,7 @@ public class Dog {
 	private Tag tag;
 	@OneToMany(mappedBy="dog", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private List<Toy> toys;
-	@ManyToMany
+	@ManyToMany 
 	@JoinTable(
 		name="likes",
 		joinColumns= @JoinColumn(name="dog_id"),

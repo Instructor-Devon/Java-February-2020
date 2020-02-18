@@ -5,6 +5,14 @@ nav {
 	display: flex;
 	justify-content: space-around;
 }
+.log-reg {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+}
+	.log-reg > div {
+		width: 40%;
+	}
 .card {
 	background-color: inherit;
 	border: none;

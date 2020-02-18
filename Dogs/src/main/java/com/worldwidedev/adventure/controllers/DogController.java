@@ -189,6 +189,9 @@ public class DogController {
 	@GetMapping("/like/{dogId}")
 	public String like(@PathVariable("dogId") Long dogId, HttpSession session) {
 		Long userId = (Long)session.getAttribute("user");
+		if(userId == null) {
+			return "redirect:/";
+		}
 		User liker = this.uService.getById(userId);
 		Dog likedDog = this.dService.getOneDog(dogId);
 		this.dService.addLiker(liker, likedDog);

@@ -1,5 +1,3 @@
-import java.util.List;
-
 public class TrieNode {
 	public char letter;
 	public TrieNode[] children;
@@ -13,9 +11,4 @@ public class TrieNode {
 		isWord = false;
 		children = new TrieNode[26];
 	}
-	
-//	@Override
-//	public String toString() {
-//		
-//	}
 }
