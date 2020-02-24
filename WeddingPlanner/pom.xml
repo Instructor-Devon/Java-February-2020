@@ -8,7 +8,7 @@
 		<version>2.2.4.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>org.worldwidedev.weddingplanner</groupId>
+	<groupId>org.worldwidedev.sup</groupId>
 	<artifactId>WeddingPlanner</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>

@@ -41,7 +41,6 @@ public class DogController {
 	private TagService tService;
 	@Autowired
 	private UserService uService;
-	@Autowired
 	private User getLoggedInUser(HttpSession session) {
 		Long userId = (Long)session.getAttribute("user");
 		if(userId == null) {

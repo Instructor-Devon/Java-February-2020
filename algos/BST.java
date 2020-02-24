@@ -1,3 +1,4 @@
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 public class BST {
@@ -5,8 +6,39 @@ public class BST {
 	 public BST() {
 		 this.root = null;
 	 }
+	 public void display(BSTNode node, int depth) {
+		 // keep track of depth? DONE
+		 
+		 // format ws*depth
+		 // ws: 4 spaces?
+         int numSpaces = 4;
+		 String ws = "";
+		 for(int i=0; i<depth*numSpaces; i++) {
+			 // last numSpaces iterations should use "-" instead of " "
+			 if(i < depth*numSpaces-numSpaces) {
+				 ws += " ";
+			 }
+			 else if (i == depth*numSpaces-numSpaces) {
+				 ws += "|";
+			 }
+			 else {
+				 ws += "-";
+			 }
+		 }
+		 
+		 // iterate node, print node values
+		 System.out.println(ws + node.value);
+		 if(node.left != null) {
+			 this.display(node.left, depth+1);
+		 }
+		 if(node.right != null) {
+			 this.display(node.right, depth+1);
+		 }
+		 
+	 }
 	 public int[] toSortedArray() {
 		 int[] payload = new int[this.size()];
+		 
 		 populateArray(this.root, payload, 0);
 		 return payload;
 	 }
