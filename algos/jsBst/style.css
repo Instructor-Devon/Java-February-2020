@@ -1,0 +1,17 @@
+ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    list-style: none;
+}
+li {
+    width: 100px;
+    height: 100px;
+    text-align: center;
+}
+.left {
+    align-self: flex-start;
+}
+.right {
+    align-self: flex-end;
+}
