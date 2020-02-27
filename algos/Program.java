@@ -3,26 +3,15 @@ import java.nio.charset.Charset;
 public class Program {
     public static void main(String[] args) {
     	
-    	int[] numbers = {1,5,6,7,10,13,20,25};
+    	int[] t1 = {10};
+    	int[] t2 = {20,10};
+    	int[] t3 = {20,10,5};
+    	int[] t4 = {20,10,4,1};
+    	Sorts.mergeSort(t1);
+    	Sorts.mergeSort(t2);
+    	Sorts.mergeSort(t3);
+    	Sorts.mergeSort(t4);
     	
-    	BST result = new BST();
-    	result.add(10);
-    	result.add(5);
-    	result.add(20);
-    	result.add(1);
-    	result.add(7);
-    	result.add(13);
-    	result.add(25);
-    	result.display(result.root,0);
-    	
-    	
-    	//10
-    	// |_ 5
-    	// 	  |_ 7
-    	//    |_ 1
-    	// |_ 20
-    	// 	  |_ 13
-    	//    |_ 25
     	
     }
     public static BST arrToBst(int[] sortedArray) {
